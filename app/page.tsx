@@ -53,7 +53,7 @@ export default function Home() {
   const prepareHint =
     trimmedJobDescription.length < 10
       ? "请先粘贴或上传可读取的岗位描述，至少 10 个字符。"
-      : "点击后通常需要 5-15 秒生成面试简报。";
+      : "点击后通常需要 5-15 秒准备语音面试。";
   const jdSummary = useMemo(() => summarizeJobDescription(jobDescription), [jobDescription]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Home() {
   async function generateBrief() {
     setIsLoadingBrief(true);
     setError("");
-    setStatus("AI 正在设计面试问题");
+    setStatus("AI 正在准备面试");
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 30000);
 
@@ -94,15 +94,15 @@ export default function Home() {
         signal: controller.signal
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "生成面试简报失败");
+      if (!response.ok) throw new Error(data.error || "准备面试失败");
 
       setBrief(data.brief);
       setFeedback(emptyFeedback);
       setTranscript([]);
       setPhase("brief");
-      setStatus("面试简报已生成");
+      setStatus("面试已准备好");
     } catch (briefError) {
-      setError(readUiError(briefError, "生成面试简报超时或失败，请检查 OPENAI_API_KEY 后重试。"));
+      setError(readUiError(briefError, "准备面试超时或失败，请检查 OPENAI_API_KEY 后重试。"));
       setStatus("准备失败");
     } finally {
       window.clearTimeout(timeout);
@@ -422,7 +422,7 @@ export default function Home() {
 
           <div className="action-row">
             <button className="prepare-button" disabled={!canPrepare} onClick={generateBrief} type="button">
-              {isLoadingBrief ? "设计中..." : "生成面试简报"}
+              {isLoadingBrief ? "准备中..." : "准备语音面试"}
             </button>
             <button className="secondary" onClick={resetSession} type="button">
               重置
@@ -437,7 +437,7 @@ export default function Home() {
           ) : null}
 
           {brief && phase !== "setup" ? (
-            <InterviewBriefView
+            <InterviewSessionView
               brief={brief}
               language={language}
               phase={phase}
@@ -492,14 +492,14 @@ function EmptyState({
     <div className="empty-layout">
       <div className="empty-copy">
         <p className="eyebrow">Ready when you are</p>
-        <h2>上传岗位描述后，AI 会先搭好面试路线，再进入实时语音面试。</h2>
+        <h2>上传岗位描述后，AI 会准备一场实时语音面试。</h2>
       </div>
       <HistoryList history={history} onLoadHistory={onLoadHistory} />
     </div>
   );
 }
 
-function InterviewBriefView({
+function InterviewSessionView({
   brief,
   language,
   phase,
@@ -552,31 +552,6 @@ function InterviewBriefView({
           <div style={{ width: `${micLevel}%` }} />
         </div>
         <span>{isMuted ? "Paused" : "Live"}</span>
-      </div>
-
-      <div className="brief-grid">
-        <div>
-          <h3>考察重点</h3>
-          <div className="chip-list">
-            {brief.focusAreas.map((area) => (
-              <span key={area}>{area}</span>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3>开场问题</h3>
-          <p>{brief.openingQuestion}</p>
-        </div>
-      </div>
-
-      <div className="plan-list">
-        <h3>面试路线</h3>
-        {brief.interviewPlan.map((item, index) => (
-          <div key={item} className="plan-item">
-            <span>{index + 1}</span>
-            <p>{item}</p>
-          </div>
-        ))}
       </div>
 
       <TranscriptPanel transcript={transcript} />

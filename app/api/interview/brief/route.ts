@@ -63,8 +63,8 @@ export async function POST(request: Request) {
       {
         error:
           error instanceof DOMException && error.name === "AbortError"
-            ? "生成面试简报超时，请稍后重试。"
-            : "生成面试简报失败，请检查服务端日志。"
+            ? "准备面试超时，请稍后重试。"
+            : "准备面试失败，请检查服务端日志。"
       },
       { status: 504 }
     );
@@ -88,9 +88,9 @@ function readOpenAIError(status: number, details: string) {
 
   try {
     const parsed = JSON.parse(details) as { error?: { message?: string } };
-    return parsed.error?.message || "生成面试简报失败，请检查 OpenAI 配置或网络。";
+    return parsed.error?.message || "准备面试失败，请检查 OpenAI 配置或网络。";
   } catch {
-    return "生成面试简报失败，请检查 OpenAI 配置或网络。";
+    return "准备面试失败，请检查 OpenAI 配置或网络。";
   }
 }
 
