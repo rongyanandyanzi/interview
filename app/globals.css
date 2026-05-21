@@ -300,9 +300,7 @@ textarea:focus {
 .feedback-list,
 .score-card,
 .question-feedback,
-.transcript-panel,
-.brief-grid > div,
-.plan-list {
+.transcript-panel {
   background: var(--panel-strong);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -397,54 +395,10 @@ textarea:focus {
   transition: width 120ms ease;
 }
 
-.brief-grid,
 .feedback-grid {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.chip-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.chip-list span {
-  background: #e8eef8;
-  border-radius: 999px;
-  color: #234a8f;
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 8px 10px;
-}
-
-.plan-list {
-  display: grid;
-  gap: 10px;
-}
-
-.plan-item {
-  align-items: flex-start;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 28px 1fr;
-}
-
-.plan-item span {
-  align-items: center;
-  background: #e8eef8;
-  border-radius: 999px;
-  color: var(--blue);
-  display: inline-flex;
-  font-size: 0.82rem;
-  font-weight: 900;
-  height: 28px;
-  justify-content: center;
-}
-
-.plan-item p {
-  margin-bottom: 0;
 }
 
 .transcript-list {
@@ -563,7 +517,6 @@ textarea:focus {
 }
 
 @media (max-width: 720px) {
-  .brief-grid,
   .feedback-grid {
     grid-template-columns: 1fr;
   }
