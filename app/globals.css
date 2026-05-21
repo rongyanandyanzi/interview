@@ -264,6 +264,14 @@ textarea:focus {
   margin-top: 18px;
 }
 
+.prepare-button {
+  background: var(--green);
+}
+
+.prepare-button:hover:not(:disabled) {
+  background: #166534;
+}
+
 .action-hint {
   color: var(--muted);
   font-size: 0.84rem;

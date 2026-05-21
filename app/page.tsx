@@ -421,7 +421,7 @@ export default function Home() {
           {error ? <div className="error-banner">{error}</div> : null}
 
           <div className="action-row">
-            <button disabled={!canPrepare} onClick={generateBrief} type="button">
+            <button className="prepare-button" disabled={!canPrepare} onClick={generateBrief} type="button">
               {isLoadingBrief ? "设计中..." : "生成面试简报"}
             </button>
             <button className="secondary" onClick={resetSession} type="button">
