@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Voice Mock Interview",
+  title: "模拟面试",
   description: "AI voice mock interviews from a job description"
 };
 

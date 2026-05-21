@@ -366,7 +366,7 @@ export default function Home() {
           <div className="brand-row">
             <div>
               <p className="eyebrow">AI Voice Interview</p>
-              <h1>模拟面试工作台</h1>
+              <h1>模拟面试</h1>
             </div>
             <span className="status-pill">{status}</span>
           </div>
