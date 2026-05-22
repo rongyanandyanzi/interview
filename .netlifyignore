@@ -1,0 +1,11 @@
+node_modules
+.next
+.netlify
+.git
+.env
+.env.local
+.env.*.local
+JD/
+coverage
+*.log
+.DS_Store
